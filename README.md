@@ -6,13 +6,13 @@ Autonomous Closed-Loop Smart Building Energy Optimization PoC: **EnergyPlus Phys
 
 ## 🎥 PoC Demonstration Video
 
-<video src="https://github.com/Jaagruthi-Musinada/eco-loop-building-agents/raw/main/eco%20loop%20building.mp4" controls width="100%">
+<video src="demo_video.mp4" controls width="100%">
   Your browser does not support the video tag.
 </video>
 
 ### 🔗 Video Links for Hackathon Evaluators:
-- **[▶️ Click Here to Watch / Download the 3-Minute PoC Video (5.5 MB)](https://github.com/Jaagruthi-Musinada/eco-loop-building-agents/raw/main/eco%20loop%20building.mp4)**
-- **Direct Video File in Repo**: [`eco loop building.mp4`](file:///eco%20loop%20building.mp4) or [`demo_video.mp4`](file:///demo_video.mp4)
+- **[▶️ View Video File on GitHub](https://github.com/Jaagruthi-Musinada/eco-loop-building-agents/blob/main/demo_video.mp4)**
+- **[📥 Direct Raw Video Stream / Download](https://raw.githubusercontent.com/Jaagruthi-Musinada/eco-loop-building-agents/main/demo_video.mp4)**
 
 ---
 
@@ -44,7 +44,7 @@ This project delivers an operational **Physical AI Closed-Loop Pipeline** calibr
 - `src/`: Unified Python source code (`energyplus_wrapper.py`, `communication_bus.py`, `mcp_server.py`, `llm_agent.py`, `control_loop.py`, `main.py`).
 - `models/`: Building `.idf` model files (`models/baseline.idf`, `models/baseline_modified.idf`) and weather file (`models/weather/site.epw` for Vijayawada, AP).
 - `docs/ARCHITECTURE.md` / `System Architecture.md`: Comprehensive System Architecture Document.
-- `eco loop building.mp4` / `demo_video.mp4`: 3-Minute PoC Video Recording.
+- `demo_video.mp4` / `eco loop building.mp4`: 3-Minute PoC Video Recording.
 
 ---
 
