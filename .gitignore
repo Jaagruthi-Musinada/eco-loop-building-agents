@@ -1,0 +1,8 @@
+.env
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.pytest_cache/
+logs/eplus_out/
+.DS_Store

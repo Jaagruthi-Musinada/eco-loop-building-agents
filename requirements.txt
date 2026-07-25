@@ -1,0 +1,15 @@
+# EnergyPlus python bindings (installed alongside EnergyPlus itself; this pip
+# package is a convenience shim some versions publish — if it fails, add the
+# EnergyPlus install dir to PYTHONPATH instead, see README)
+# energyplus-api
+
+eppy==0.5.63              # .idf parsing/editing
+requests==2.32.3          # talk to local LLM HTTP endpoint (Ollama/vLLM)
+mcp==1.2.0                # Model Context Protocol server/client SDK
+python-dotenv==1.0.1
+pandas==2.2.3
+streamlit==1.38.0
+plotly==5.24.1
+pydantic==2.9.2
+loguru==0.7.2
+pytest==8.3.3

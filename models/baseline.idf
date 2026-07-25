@@ -1,0 +1,122 @@
+! Eco-Loop Building Agents - Baseline Building Model (EnergyPlus IDF v23.1)
+! Commercial Single-Zone Office Sandbox Model
+
+Version, 23.1;
+
+Building,
+    EcoLoop Office Building, !- Name
+    0.0,                     !- North Axis {deg}
+    Suburbs,                 !- Terrain
+    0.04,                    !- Loads Convergence Tolerance Value {W}
+    0.4,                     !- Temperature Convergence Tolerance Value {deltaC}
+    FullInteriorAndExterior, !- Solar Distribution
+    25,                      !- Maximum Number of Warmup Days
+    6;                       !- Minimum Number of Warmup Days
+
+Timestep, 4; ! 15-minute timesteps (4 per hour)
+
+SurfaceConvectionAlgorithm:Inside, TARP;
+SurfaceConvectionAlgorithm:Outside, DOE-2;
+HeatBalanceAlgorithm, ConductionTransferFunction;
+
+Zone,
+    ZONE1,                   !- Name
+    0,                       !- Direction of Relative North {deg}
+    0, 0, 0,                 !- X, Y, Z {m}
+    1,                       !- Type
+    1,                       !- Multiplier
+    autocalculate,           !- Ceiling Height {m}
+    autocalculate;           !- Volume {m3}
+
+! Materials
+Material,
+    Concrete Wall,           !- Name
+    MediumRough,             !- Roughness
+    0.2,                     !- Thickness {m}
+    1.4,                     !- Thermal Conductivity {W/m-K}
+    2300,                    !- Density {kg/m3}
+    840;                     !- Specific Heat {J/kg-K}
+
+Material,
+    Insulation,              !- Name
+    MediumRough,             !- Roughness
+    0.05,                    !- Thickness {m}
+    0.03,                    !- Thermal Conductivity {W/m-K}
+    30,                      !- Density {kg/m3}
+    1200;                    !- Specific Heat {J/kg-K}
+
+Construction,
+    Exterior Wall Construction, !- Name
+    Concrete Wall,           !- Layer 1
+    Insulation;              !- Layer 2
+
+! Thermostat and Setpoints
+ZoneControl:Thermostat,
+    Zone 1 Thermostat,       !- Name
+    ZONE1,                   !- Zone Name
+    Zone Control Type Sched, !- Control Type Schedule Name
+    ThermostatSetpoint:DualSetpoint, !- Control 1 Object Type
+    Office Dual Setpoint;    !- Control 1 Name
+
+ThermostatSetpoint:DualSetpoint,
+    Office Dual Setpoint,    !- Name
+    Heating Setpoint Sched,  !- Heating Setpoint Temperature Schedule Name
+    Cooling Setpoint Sched;  !- Cooling Setpoint Temperature Schedule Name
+
+ScheduleTypeLimits, Temperature, -50, 100, Continuous;
+ScheduleTypeLimits, Control Type, 0, 4, Discrete;
+
+Schedule:Compact,
+    Zone Control Type Sched, !- Name
+    Control Type,            !- Schedule Type Limits Name
+    Through: 12/31,          !- Field 1
+    For: AllDays,            !- Field 2
+    Until: 24:00, 4;         !- Dual setpoint control
+
+Schedule:Compact,
+    Heating Setpoint Sched,  !- Name
+    Temperature,             !- Schedule Type Limits Name
+    Through: 12/31,          !- Field 1
+    For: AllDays,            !- Field 2
+    Until: 24:00, 21.0;      !- Baseline 21 C
+
+Schedule:Compact,
+    Cooling Setpoint Sched,  !- Name
+    Temperature,             !- Schedule Type Limits Name
+    Through: 12/31,          !- Field 1
+    For: AllDays,            !- Field 2
+    Until: 24:00, 24.0;      !- Baseline 24 C
+
+! Internal Loads
+People,
+    Zone 1 People,           !- Name
+    ZONE1,                   !- Zone Name
+    Occupancy Sched,         !- Number of People Schedule Name
+    People,                  !- Number of People Calculation Method
+    10,                      !- Number of People
+    ,                        !- People per Zone Floor Area
+    ,                        !- Zone Floor Area per Person
+    0.3,                     !- Fraction Radiant
+    autocalculate,           !- Sensible Heat Fraction
+    Activity Sched;          !- Activity Level Schedule Name
+
+Schedule:Compact,
+    Occupancy Sched,         !- Name
+    Fraction,                !- Schedule Type Limits Name
+    Through: 12/31,          !- Field 1
+    For: AllDays,            !- Field 2
+    Until: 08:00, 0.0,       !- Unoccupied morning
+    Until: 18:00, 1.0,       !- Work hours
+    Until: 24:00, 0.0;       !- Unoccupied night
+
+Schedule:Compact,
+    Activity Sched,          !- Name
+    Any Number,              !- Schedule Type Limits Name
+    Through: 12/31,          !- Field 1
+    For: AllDays,            !- Field 2
+    Until: 24:00, 120;       !- 120 W/person (office work)
+
+! Output Variables for Sensors
+Output:Variable, ZONE1, Zone Mean Air Temperature, Timestep;
+Output:Variable, ZONE1, Zone Air Relative Humidity, Timestep;
+Output:Variable, *, Facility Total Electricity Demand Rate, Timestep;

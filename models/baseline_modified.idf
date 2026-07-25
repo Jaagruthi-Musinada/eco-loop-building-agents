@@ -1,0 +1,5 @@
+! Eco-Loop Building Agents - Runtime Modified IDF
+! This file is generated dynamically when ECM setpoint adjustments are serialized to disk.
+
+Version, 23.1;
+! Copy of baseline.idf with active forward-injected agent setpoints.
